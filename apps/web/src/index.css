@@ -1,0 +1,257 @@
+@import "tailwindcss";
+
+/* === Obsidian Design System Tokens === */
+@theme {
+  /* Core surfaces */
+  --color-background: #09090b;
+  --color-surface: #0c0c0f;
+  --color-surface-dim: #0c0c0f;
+  --color-surface-bright: #18181b;
+  --color-surface-container-lowest: #09090b;
+  --color-surface-container-low: #0f0f12;
+  --color-surface-container: #121215;
+  --color-surface-container-high: #18181b;
+  --color-surface-container-highest: #1e1e22;
+  --color-surface-variant: #18181b;
+  --color-surface-tint: #a78bfa;
+  --color-inverse-surface: #fafafa;
+  --color-inverse-on-surface: #09090b;
+
+  /* Primary palette */
+  --color-primary: #a78bfa;
+  --color-primary-container: #7c3aed;
+  --color-primary-fixed: #ede9fe;
+  --color-primary-fixed-dim: #c4b5fd;
+  --color-on-primary: #0a0012;
+  --color-on-primary-fixed: #2e1065;
+  --color-on-primary-fixed-variant: #5b21b6;
+  --color-on-primary-container: #ede9fe;
+  --color-inverse-primary: #5b21b6;
+
+  /* Secondary palette */
+  --color-secondary: #71717a;
+  --color-secondary-container: #27272a;
+  --color-secondary-fixed: #a1a1aa;
+  --color-secondary-fixed-dim: #71717a;
+  --color-on-secondary: #09090b;
+  --color-on-secondary-container: #a1a1aa;
+  --color-on-secondary-fixed: #18181b;
+  --color-on-secondary-fixed-variant: #3f3f46;
+
+  /* Tertiary palette (success/green) */
+  --color-tertiary: #34d399;
+  --color-tertiary-container: #065f46;
+  --color-tertiary-fixed: #bbf7d0;
+  --color-tertiary-fixed-dim: #6ee7b7;
+  --color-on-tertiary: #001a12;
+  --color-on-tertiary-container: #bbf7d0;
+  --color-on-tertiary-fixed: #003318;
+  --color-on-tertiary-fixed-variant: #047857;
+
+  /* Error palette */
+  --color-error: #ef4444;
+  --color-error-container: #3b1111;
+  --color-on-error: #1a0000;
+  --color-on-error-container: #fca5a5;
+
+  /* Content on surfaces */
+  --color-on-background: #fafafa;
+  --color-on-surface: #fafafa;
+  --color-on-surface-variant: #a1a1aa;
+
+  /* Borders */
+  --color-outline: #52525b;
+  --color-outline-variant: #27272a;
+
+  /* Warning */
+  --color-warning: #f59e0b;
+  --color-warning-container: #451a03;
+  --color-on-warning-container: #fbbf24;
+
+  /* Fonts */
+  --font-headline: "Geist", sans-serif;
+  --font-display: "Geist", sans-serif;
+  --font-body: "Geist", sans-serif;
+  --font-label: "Geist", sans-serif;
+  --font-mono: "Geist Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
+  /* Border radius */
+  --radius: 0.25rem;
+  --radius-lg: 0.5rem;
+  --radius-xl: 0.75rem;
+  --radius-full: 9999px;
+}
+
+/* === Custom Scrollbar === */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #09090b;
+}
+::-webkit-scrollbar-thumb {
+  background: #27272a;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #52525b;
+}
+
+/* === Range Slider === */
+input[type="range"] {
+  -webkit-appearance: none;
+  width: 100%;
+  background: transparent;
+}
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  height: 16px;
+  width: 16px;
+  border-radius: 50%;
+  background: #a78bfa;
+  cursor: pointer;
+  margin-top: -6px;
+  box-shadow: 0 0 0 2px #09090b, 0 0 0 4px #27272a;
+}
+input[type="range"]::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 4px;
+  cursor: pointer;
+  background: #27272a;
+  border-radius: 2px;
+}
+input[type="range"]:focus::-webkit-slider-thumb {
+  box-shadow: 0 0 0 2px #09090b, 0 0 0 4px #a78bfa;
+}
+
+/* === Material Symbols size helpers === */
+.material-symbols-outlined {
+  font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
+}
+
+/* === Smooth transitions === */
+* {
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* === Code highlight theme (dark) === */
+pre code.hljs {
+  background: #09090b !important;
+  border-radius: 0.5rem;
+  padding: 1rem;
+}
+
+/* === Page Transition === */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideInRight {
+  from { opacity: 0; transform: translateX(20px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes pulseGlow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(167, 139, 250, 0.4); }
+  50% { box-shadow: 0 0 12px 4px rgba(167, 139, 250, 0.15); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.3s ease-out both;
+}
+
+.animate-slide-up {
+  animation: slideUp 0.4s ease-out both;
+}
+
+.animate-slide-in-right {
+  animation: slideInRight 0.3s ease-out both;
+}
+
+.animate-scale-in {
+  animation: scaleIn 0.25s ease-out both;
+}
+
+.animate-pulse-glow {
+  animation: pulseGlow 2s ease-in-out infinite;
+}
+
+/* Stagger children animations */
+.stagger-children > * {
+  animation: slideUp 0.4s ease-out both;
+}
+.stagger-children > *:nth-child(1) { animation-delay: 0ms; }
+.stagger-children > *:nth-child(2) { animation-delay: 60ms; }
+.stagger-children > *:nth-child(3) { animation-delay: 120ms; }
+.stagger-children > *:nth-child(4) { animation-delay: 180ms; }
+.stagger-children > *:nth-child(5) { animation-delay: 240ms; }
+.stagger-children > *:nth-child(6) { animation-delay: 300ms; }
+.stagger-children > *:nth-child(7) { animation-delay: 360ms; }
+.stagger-children > *:nth-child(8) { animation-delay: 420ms; }
+
+/* === Loading Skeleton === */
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    #18181b 25%,
+    #27272a 50%,
+    #18181b 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s ease-in-out infinite;
+  border-radius: 0.375rem;
+}
+
+/* === Mobile Sidebar Overlay === */
+.sidebar-overlay {
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  animation: fadeIn 0.2s ease-out both;
+}
+
+.sidebar-mobile-enter {
+  animation: slideInFromLeft 0.3s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes slideInFromLeft {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(0); }
+}
+
+/* === Card hover lift === */
+.card-hover {
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+.card-hover:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
+/* === Table row hover === */
+.row-hover {
+  transition: background-color 0.15s ease;
+}
+
+/* === Focus ring === */
+.focus-ring:focus-visible {
+  outline: 2px solid #a78bfa;
+  outline-offset: 2px;
+  border-radius: 0.25rem;
+}
