@@ -35,7 +35,9 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url))
 // Configuration
 const PORT = parseInt(process.env.PORT || '3001', 10)
 const WORKSPACES_DIR = process.env.WORKSPACES_DIR || path.resolve(__dirname, '..', '..', '..', 'workspaces')
-const CORS_ORIGIN = process.env.CORS_ORIGIN || 'http://localhost:5173'
+const CORS_ORIGINS = (process.env.CORS_ORIGIN || 'http://localhost:5173')
+  .split(',')
+  .map(s => s.trim())
 
 // Initialize services
 const workspaceService = new WorkspaceService(WORKSPACES_DIR)
@@ -45,7 +47,7 @@ const app = express()
 
 // Middleware
 app.use(cors({
-  origin: CORS_ORIGIN,
+  origin: CORS_ORIGINS.length === 1 ? CORS_ORIGINS[0] : CORS_ORIGINS,
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization'],
 }))
@@ -90,7 +92,7 @@ app.listen(PORT, () => {
 ║   Shannon API Server                          ║
 ║   Port: ${String(PORT).padEnd(38)}║
 ║   Workspaces: ${WORKSPACES_DIR.slice(-33).padEnd(33)}║
-║   CORS: ${CORS_ORIGIN.padEnd(38)}║
+║   CORS: ${CORS_ORIGINS.join(', ').slice(-33).padEnd(33)}║
 ╚═══════════════════════════════════════════════╝
   `)
 })
