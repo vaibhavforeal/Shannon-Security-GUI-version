@@ -9,6 +9,7 @@
     "start": "node dist/server.js"
   },
   "dependencies": {
+    "@temporalio/client": "^1.17.0",
     "cors": "^2.8.5",
     "express": "^5.1.0",
     "glob": "^11.0.2"

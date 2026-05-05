@@ -8,7 +8,7 @@
 import { create } from 'zustand'
 import { api } from '../services/api'
 import type { WorkspaceSummary, WorkspaceDetail, FindingAPI, ScanProgress } from '../services/api'
-import { mockScans, mockFindings, mockPipelineAgents, mockMetrics } from '../data/mock'
+import { mockScans, mockFindings } from '../data/mock'
 
 interface ScanStore {
   // State
@@ -33,7 +33,7 @@ interface ScanStore {
   clearError: () => void
 }
 
-export const useScanStore = create<ScanStore>((set, get) => ({
+export const useScanStore = create<ScanStore>((set) => ({
   workspaces: [],
   activeWorkspace: null,
   findings: [],

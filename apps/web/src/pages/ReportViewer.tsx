@@ -1,9 +1,8 @@
-import { useState, useMemo } from 'react'
+import { useMemo } from 'react'
 import Topbar from '../components/layout/Topbar'
 import { mockReportMarkdown } from '../data/mock'
 
 export default function ReportViewer() {
-  const [activeSection, setActiveSection] = useState('')
 
   // Extract headings for table of contents
   const headings = useMemo(() => {
@@ -18,7 +17,7 @@ export default function ReportViewer() {
   // Simple markdown to JSX renderer
   const renderMarkdown = (md: string) => {
     const lines = md.split('\n')
-    const elements: JSX.Element[] = []
+    const elements: React.JSX.Element[] = []
     let inCodeBlock = false
     let codeBuffer: string[] = []
     let codeLang = ''
