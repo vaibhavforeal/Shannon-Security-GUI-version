@@ -255,3 +255,26 @@ pre code.hljs {
   outline-offset: 2px;
   border-radius: 0.25rem;
 }
+
+/* === App Footer === */
+.app-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem 1.5rem;
+  background: #09090b;
+  border-top: 1px solid #1e1e22;
+  font-size: 0.75rem;
+  color: #71717a;
+  flex-shrink: 0;
+  z-index: 50;
+}
+
+.app-footer strong {
+  background: linear-gradient(135deg, #7dd3fc, #a78bfa);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 600;
+}
+

@@ -10,18 +10,24 @@ import Settings from './pages/Settings'
 
 export default function App() {
   return (
-    <div className="flex h-screen overflow-hidden">
-      <Sidebar />
-      <Routes>
-        <Route path="/" element={<Dashboard />} />
-        <Route path="/scan-detail" element={<ScanDetail />} />
-        <Route path="/findings" element={<FindingsExplorer />} />
-        <Route path="/report" element={<ReportViewer />} />
-        <Route path="/new-scan" element={<NewScan />} />
-        <Route path="/boundary" element={<BoundaryAnalysis />} />
-        <Route path="/settings" element={<Settings />} />
-        <Route path="*" element={<Dashboard />} />
-      </Routes>
+    <div className="flex flex-col h-screen overflow-hidden">
+      <div className="flex flex-1 overflow-hidden">
+        <Sidebar />
+        <Routes>
+          <Route path="/" element={<Dashboard />} />
+          <Route path="/scan-detail" element={<ScanDetail />} />
+          <Route path="/findings" element={<FindingsExplorer />} />
+          <Route path="/report" element={<ReportViewer />} />
+          <Route path="/new-scan" element={<NewScan />} />
+          <Route path="/boundary" element={<BoundaryAnalysis />} />
+          <Route path="/settings" element={<Settings />} />
+          <Route path="*" element={<Dashboard />} />
+        </Routes>
+      </div>
+      <footer className="app-footer">
+        <span>Developed by <strong>Vaibhav Shettar</strong>, Code-V</span>
+        <span>© 2026 All rights reserved</span>
+      </footer>
     </div>
   )
 }
