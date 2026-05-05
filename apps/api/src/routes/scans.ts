@@ -14,6 +14,7 @@ import {
   stopScan,
   listRunningScans,
 } from '../services/temporal.service.js'
+import { requireApiKey } from '../middleware/auth.js'
 
 export function createScanRoutes(): Router {
   const router = Router()
@@ -29,8 +30,8 @@ export function createScanRoutes(): Router {
     }
   })
 
-  // Start a new scan
-  router.post('/', async (req, res) => {
+  // Start a new scan (requires API key)
+  router.post('/', requireApiKey, async (req, res) => {
     try {
       const { targetUrl, repoPath, workspace, apiKey, pipelineTestingMode } = req.body
 
@@ -91,10 +92,10 @@ export function createScanRoutes(): Router {
     }
   })
 
-  // Stop a running scan
-  router.post('/:id/stop', async (req, res) => {
+  // Stop a running scan (requires API key)
+  router.post('/:id/stop', requireApiKey, async (req, res) => {
     try {
-      const stopped = await stopScan(req.params.id)
+      const stopped = await stopScan(req.params.id as string)
 
       if (!stopped) {
         res.status(404).json({
