@@ -30,6 +30,7 @@ import {
   proxyActivities,
   setHandler,
   workflowInfo,
+  type RetryPolicy,
 } from '@temporalio/workflow';
 import type { AgentName, VulnType } from '../types/agents.js';
 import { ALL_AGENTS } from '../types/agents.js';
@@ -62,30 +63,33 @@ function computeExpectedAgents(vulnClasses: readonly VulnClass[], exploit: boole
   return expected;
 }
 
+// Common non-retryable errors for all policies
+const COMMON_NON_RETRYABLE_ERRORS = [
+  'AuthenticationError',
+  'PermissionError',
+  'InvalidRequestError',
+  'RequestTooLargeError',
+  'ConfigurationError',
+  'InvalidTargetError',
+  'ExecutionLimitError',
+];
+
 // Retry configuration for production (long intervals for billing recovery)
-const PRODUCTION_RETRY = {
+const PRODUCTION_RETRY: RetryPolicy = {
   initialInterval: '5 minutes',
   maximumInterval: '30 minutes',
   backoffCoefficient: 2,
   maximumAttempts: 50,
-  nonRetryableErrorTypes: [
-    'AuthenticationError',
-    'PermissionError',
-    'InvalidRequestError',
-    'RequestTooLargeError',
-    'ConfigurationError',
-    'InvalidTargetError',
-    'ExecutionLimitError',
-  ],
+  nonRetryableErrorTypes: COMMON_NON_RETRYABLE_ERRORS,
 };
 
 // Retry configuration for pipeline testing (fast iteration)
-const TESTING_RETRY = {
+const TESTING_RETRY: RetryPolicy = {
   initialInterval: '10 seconds',
   maximumInterval: '30 seconds',
   backoffCoefficient: 2,
   maximumAttempts: 5,
-  nonRetryableErrorTypes: PRODUCTION_RETRY.nonRetryableErrorTypes,
+  nonRetryableErrorTypes: COMMON_NON_RETRYABLE_ERRORS,
 };
 
 // Activity proxy with production retry configuration (default)
@@ -103,12 +107,12 @@ const testActs = proxyActivities<typeof activities>({
 });
 
 // Retry configuration for subscription plans (5h+ rolling rate limit windows)
-const SUBSCRIPTION_RETRY = {
+const SUBSCRIPTION_RETRY: RetryPolicy = {
   initialInterval: '5 minutes',
   maximumInterval: '6 hours',
   backoffCoefficient: 2,
   maximumAttempts: 100,
-  nonRetryableErrorTypes: PRODUCTION_RETRY.nonRetryableErrorTypes,
+  nonRetryableErrorTypes: COMMON_NON_RETRYABLE_ERRORS,
 };
 
 // Activity proxy for subscription plan recovery (extended timeouts)
@@ -119,12 +123,12 @@ const subscriptionActs = proxyActivities<typeof activities>({
 });
 
 // Retry configuration for preflight validation (short timeout, few retries)
-const PREFLIGHT_RETRY = {
+const PREFLIGHT_RETRY: RetryPolicy = {
   initialInterval: '10 seconds',
   maximumInterval: '1 minute',
   backoffCoefficient: 2,
   maximumAttempts: 3,
-  nonRetryableErrorTypes: PRODUCTION_RETRY.nonRetryableErrorTypes,
+  nonRetryableErrorTypes: COMMON_NON_RETRYABLE_ERRORS,
 };
 
 // Activity proxy for preflight validation (short timeout)
